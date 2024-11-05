@@ -1,11 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
+import AdminLayout from "./layouts/AdminLayout";
 import MainForm from "./views/MainForm";
 import Login from "./views/Login";
-import AdminLayout from "./layouts/AdminLayout";
 import Areas from "./views/Admin/Areas";
 import Strategies from "./views/Admin/Strategies";
 import Security from "./views/Admin/Security";
+import Students from "./views/Admin/Students";
 
 const ProtectedRoute = ({ children }) => {
   const username = localStorage.getItem("username")
@@ -55,6 +56,16 @@ const AppRoutes = () => {
           <AdminRoute>
             <AdminLayout>
               <Security />
+            </AdminLayout>
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/students"
+        element={
+          <AdminRoute>
+            <AdminLayout>
+              <Students />
             </AdminLayout>
           </AdminRoute>
         }

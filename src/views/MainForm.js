@@ -11,6 +11,7 @@ import {
   CheckboxGroup,
   Container,
   Button,
+  Tooltip,
 } from "@chakra-ui/react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
@@ -66,6 +67,18 @@ const MainForm = () => {
   useEffect(() => {
     fetchStrategies();
   }, []);
+
+  const onAutoGenerate = async () => {
+    const { data } = await api.get(`/student/${firstName}`);
+    if (data.length > 0) {
+      setFirstName(data[0].firstName);
+      setLastName(data[0].lastName);
+      setYear(data[0].year);
+      setClassName(data[0].class);
+      setClassName(data[0].teacher);
+      setDOB(data[0].dob);
+    }
+  };
 
   return (
     <Container padding="40px" flexDirection="column" maxWidth="1000px">
@@ -131,6 +144,16 @@ const MainForm = () => {
             onChange={(e) => setDOB(e.target.value)}
           />
         </FormControl>
+        <Tooltip label="After fill First Name" placement="top-start">
+          <Text
+            cursor="pointer"
+            _hover={{ textDecoration: "underline" }}
+            onClick={onAutoGenerate}
+            maxWidth="110px"
+          >
+            Auto Generate
+          </Text>
+        </Tooltip>
       </SimpleGrid>
       <Text textAlign="center" fontSize="20" fontWeight="bold" mt="8">
         Disability Category(if applicable)

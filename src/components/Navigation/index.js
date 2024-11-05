@@ -12,6 +12,11 @@ const items = [
     path: "/",
   },
   {
+    label: "Students",
+    icon: MdOutlineSpaceDashboard,
+    path: "/students",
+  },
+  {
     label: "Security",
     icon: MdOutlineShoppingBag,
     path: "/security",
@@ -22,7 +27,7 @@ export const Navigation = ({ collapse }) => (
   <List w="full" my={8}>
     {items.map((item, index) => (
       <ListItem key={index}>
-        <NavItem item={item} isActive={index === 0} collapse={collapse} />
+        <NavItem item={item} collapse={collapse} />
       </ListItem>
     ))}
   </List>

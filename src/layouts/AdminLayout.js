@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HStack, Flex, IconButton, Button } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
@@ -42,13 +42,17 @@ const AdminLayout = ({ children }) => {
         borderRadius="3xl"
       >
         <Flex justifyContent="space-between" padding="6">
-          <IconButton
-            aria-label="Menu Colapse"
-            icon={<HamburgerIcon />}
-            color="blue"
-            onClick={() => setCollapse(!collapse)}
-            width="45px"
-          />
+          <Flex alignItems="center">
+            <IconButton
+              aria-label="Menu Colapse"
+              icon={<HamburgerIcon />}
+              color="blue"
+              onClick={() => setCollapse(!collapse)}
+              width="45px"
+              mr="4"
+            />
+            <Link to="/">Go to IEP Form</Link>
+          </Flex>
           <Button colorScheme="orange" onClick={onLogout}>
             Logout
           </Button>
