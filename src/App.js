@@ -1,18 +1,18 @@
-import { Routes, Route } from "react-router-dom";
-
-import MainForm from "./views/MainForm";
-import Login from "./views/Login";
+import AppRoutes from "./routes";
+import { UserContextProvider } from "./contexts/userContext";
 
 import "./App.css";
+import { AreaContextProvider } from "./contexts/areaContext";
 
 function App() {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={ <MainForm />} />
-        <Route path="/login" element={ <Login />} />
-      </Routes>
-    </div>
+    <UserContextProvider>
+      <AreaContextProvider>
+        <div className="App">
+          <AppRoutes />
+        </div>
+      </AreaContextProvider>
+    </UserContextProvider>
   );
 }
 

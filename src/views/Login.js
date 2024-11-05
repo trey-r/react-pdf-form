@@ -11,14 +11,33 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { api } from "../utils/utils";
+import { useUserContext } from "../contexts/userContext";
 
 function Login() {
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const { onSetUser} = useUserContext();
 
   const titleColor = useColorModeValue("teal.300", "teal.200");
   const textColor = useColorModeValue("gray.400", "white");
+
+  const onLogin = async () => {
+    const { data } = await api.post("/auth/login", { pwd: password });
+    if (data.message === "success") {
+      
+      onSetUser(data.username)
+      if (data.username === "student") {
+        navigate("/");
+      } else {
+        navigate("/admin")
+      }
+    } else {
+      setError(data.message);
+    }
+  };
 
   return (
     <Container maxWidth="450px">
@@ -57,6 +76,7 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {error && <Text color="tomato">{error}</Text>}
           <Button
             fontSize="10px"
             type="submit"
@@ -73,7 +93,7 @@ function Login() {
               bg: "teal.400",
             }}
             disabled={!password}
-            onClick={() => navigate("/")}
+            onClick={onLogin}
           >
             SIGN IN
           </Button>
