@@ -84,7 +84,8 @@ const MainForm = () => {
       setYear(data[0].year);
       setClassName(data[0].class);
       setTeacher(data[0].teacher);
-      setDOB(data[0].dob);
+      const dobToUpdate = DateTime.fromFormat(data[0].dob, "dd/MM/yyyy").toJSDate()
+      setDOB(dobToUpdate);
     }
   };
 

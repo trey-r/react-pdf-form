@@ -32,17 +32,19 @@ const Students = () => {
     try {
       const data = await readExcel(file);
       data.shift();
-      const { data: apiRes } = await api.post("/student/add", {
-        firstName: data[0][0],
-        lastName: data[0][1],
-        year: data[0][2],
-        class: data[0][3],
-        teacher: data[0][4],
-        dob: data[0][5],
-      });
-      if (apiRes.message === "success") {
-        fetchStudents();
+      for (const student of data) {
+        if (student.length > 0) {
+          await api.post("/student/add", {
+            firstName: student[0],
+            lastName: student[1],
+            year: student[2],
+            class: student[3],
+            teacher: student[4],
+            dob: student[5],
+          });
+        }
       }
+      fetchStudents();
     } catch (error) {
       console.error("Error reading Excel file", error);
     }
