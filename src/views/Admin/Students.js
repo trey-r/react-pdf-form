@@ -38,6 +38,7 @@ const Students = () => {
         year: data[0][2],
         class: data[0][3],
         teacher: data[0][4],
+        dob: data[0][5],
       });
       if (apiRes.message === "success") {
         fetchStudents();
@@ -66,6 +67,7 @@ const Students = () => {
               <Th>Year</Th>
               <Th>Class</Th>
               <Th>Class Teacher</Th>
+              <Th>Dob</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -78,6 +80,7 @@ const Students = () => {
                   year,
                   class: className,
                   teacher,
+                  dob
                 },
                 index
               ) => {
@@ -88,6 +91,7 @@ const Students = () => {
                     <Td>{year}</Td>
                     <Td>{className}</Td>
                     <Td>{teacher}</Td>
+                    <Td>{dob}</Td>
                     <Td>
                       <IconButton
                         size="sm"

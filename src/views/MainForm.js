@@ -8,12 +8,13 @@ import {
   Input,
   Text,
   Checkbox,
-  CheckboxGroup,
   Container,
   Button,
   Tooltip,
 } from "@chakra-ui/react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import DatePicker from "react-datepicker";
+import { DateTime } from "luxon";
 
 import ReactPdf from "../components/ReactPdf";
 import PreviewModal from "../components/PreviewModal";
@@ -23,6 +24,8 @@ import { api } from "../utils/utils";
 import AreaSection from "../components/AreaSection";
 import { useAreaContext } from "../contexts/areaContext";
 
+import "react-datepicker/dist/react-datepicker.css";
+
 const MainForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -30,6 +33,7 @@ const MainForm = () => {
   const [className, setClassName] = useState("");
   const [teacher, setTeacher] = useState("");
   const [dob, setDOB] = useState("");
+  const [submitDate, setSubmitDate] = useState("");
   const [isPhysical, setIsPhysical] = useState(false);
   const [isCognitive, setIsCognitive] = useState(false);
   const [isSocial, setIsSocial] = useState(false);
@@ -75,7 +79,7 @@ const MainForm = () => {
       setLastName(data[0].lastName);
       setYear(data[0].year);
       setClassName(data[0].class);
-      setClassName(data[0].teacher);
+      setTeacher(data[0].teacher);
       setDOB(data[0].dob);
     }
   };
@@ -113,10 +117,11 @@ const MainForm = () => {
           <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
             Date
           </FormLabel>
-          <Input
-            value={year}
-            type="date"
-            onChange={(e) => setYear(e.target.value)}
+          <DatePicker
+            selected={submitDate}
+            onChange={(date) => setSubmitDate(date)}
+            dateFormat="dd/MM/yyyy"
+            customInput={<Input />}
           />
         </FormControl>
         <FormControl>
@@ -138,23 +143,32 @@ const MainForm = () => {
           <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
             DOB
           </FormLabel>
-          <Input
-            value={dob}
-            type="date"
-            onChange={(e) => setDOB(e.target.value)}
+          <DatePicker
+            selected={dob}
+            onChange={(date) => setDOB(date)}
+            dateFormat="dd/MM/yyyy"
+            customInput={<Input />}
           />
         </FormControl>
-        <Tooltip label="After fill First Name" placement="top-start">
+        <FormControl>
+          <FormLabel ms="4px" fontSize="sm" fontWeight="normal">
+            Year
+          </FormLabel>
+          <Input value={year} onChange={(e) => setYear(e.target.value)} />
+        </FormControl>
+      </SimpleGrid>
+      <Tooltip label="After fill First Name" placement="top-start">
           <Text
             cursor="pointer"
             _hover={{ textDecoration: "underline" }}
             onClick={onAutoGenerate}
             maxWidth="110px"
+            color="blue.500"
+            mt="4"
           >
             Auto Generate
           </Text>
         </Tooltip>
-      </SimpleGrid>
       <Text textAlign="center" fontSize="20" fontWeight="bold" mt="8">
         Disability Category(if applicable)
       </Text>
@@ -233,7 +247,10 @@ const MainForm = () => {
               year={year}
               className={className}
               teacher={teacher}
-              dob={dob}
+              dob={DateTime.fromJSDate(dob).toFormat("dd/MM/yyyy")}
+              submitDate={DateTime.fromJSDate(submitDate).toFormat(
+                "dd/MM/yyyy"
+              )}
               areas={areas}
               isPhysical={isPhysical}
               isCognitive={isCognitive}
@@ -262,7 +279,8 @@ const MainForm = () => {
         year={year}
         className={className}
         teacher={teacher}
-        dob={dob}
+        dob={DateTime.fromJSDate(dob).toFormat("dd/MM/yyyy")}
+        submitDate={DateTime.fromJSDate(submitDate).toFormat("dd/MM/yyyy")}
         isPhysical={isPhysical}
         isCognitive={isCognitive}
         isSocial={isSocial}

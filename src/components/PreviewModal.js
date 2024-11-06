@@ -21,6 +21,7 @@ const PreviewModal = ({
   className,
   teacher,
   dob,
+  submitDate,
   isPhysical,
   isCognitive,
   isSocial,
@@ -43,6 +44,7 @@ const PreviewModal = ({
               className={className}
               teacher={teacher}
               dob={dob}
+              submitDate={submitDate}
               areas={areas}
               isPhysical={isPhysical}
               isCognitive={isCognitive}

@@ -92,6 +92,7 @@ const ReactPdf = ({
   className,
   teacher,
   dob,
+  submitDate,
   areas,
   isPhysical,
   isCognitive,
@@ -121,7 +122,7 @@ const ReactPdf = ({
             <Text style={{ padding: 4, borderBottom: "1px solid black" }}>
               Year: {year}
             </Text>
-            <Text style={{ padding: 4 }}>Date: Date</Text>
+            <Text style={{ padding: 4 }}>Date: {submitDate}</Text>
           </View>
           <View style={styles.parentSection}>
             <Text style={{ padding: 4, borderBottom: "1px solid black" }}>
