@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
 const AreaContext = React.createContext({
-  areas: {},
+  areas: null,
   onSetAreas: () => {},
 });
 
@@ -14,8 +14,12 @@ export const AreaContextProvider = ({ children }) => {
     setAreas(areasToUpdate);
   };
 
+  const onResetAreas = () => {
+    setAreas(null);
+  }
+
   return (
-    <AreaContext.Provider value={{ areas, onSetAreas }}>
+    <AreaContext.Provider value={{ areas, onSetAreas, onResetAreas }}>
       {children}
     </AreaContext.Provider>
   );

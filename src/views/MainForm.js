@@ -43,7 +43,7 @@ const MainForm = () => {
   const [healthStrategies, setHealthStrategies] = useState([]);
 
   const { onSetUser } = useUserContext();
-  const { areas } = useAreaContext();
+  const { areas, onResetAreas } = useAreaContext();
   const navigate = useNavigate();
 
   const onLogout = () => {
@@ -70,6 +70,10 @@ const MainForm = () => {
 
   useEffect(() => {
     fetchStrategies();
+
+    return () => {
+      onResetAreas();
+    }
   }, []);
 
   const onAutoGenerate = async () => {
