@@ -60,7 +60,7 @@ const Students = () => {
   return (
     <Flex padding="6" flexDirection="column" overflowY="auto">
       <FileInput onFileSelect={onFileSelect} />
-      <TableContainer mt="12">
+      <TableContainer mt="12" overflowY="auto">
         <Table size="sm">
           <Thead>
             <Tr>
